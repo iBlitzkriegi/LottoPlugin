@@ -4,3 +4,12 @@ Not really sure how this is going to work yet, possibly as a 50/50 draw? Players
 If the tickets are real items rather than just something you keep track of with commands, and if the items each have unique lore, then they won't stack and players won't be able to spam too many tickets. Could be a pro or a con, might want to implement multiple options for how people can implement this plugin on their servers.
 
 Slot machines using maps could probably be a thing too, but that's a bit more complex...
+
+
+# Planned Features
+
+- Configurable Time when Lottery Starts/Ends
+- Start/Stop/Restart Lottery with command
+- Hook into EssentialsX Economy
+- Permissions
+- 

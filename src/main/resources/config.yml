@@ -1,2 +1,4 @@
 #default config options, the version of the file in the jar never changes, so that if server
 #owners delete the file from the /plugins/LotteryPlugin folder it can be recreated from default settings
+
+
