@@ -18,10 +18,10 @@ public final class LottoPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        System.out.println("Plugin is now Loading");
         this.getCommand("lottery").setExecutor(new Lottery());
         getServer().getConsoleSender().sendMessage("LotteryPlugin Enabled");
         saveDefaultConfig();
+        createLotteryPlayerConfig();
 
     }
 
@@ -33,6 +33,7 @@ public final class LottoPlugin extends JavaPlugin {
 
     public FileConfiguration getLotteryPlayerConfig() {
         return this.lotteryPlayer;
+
     }
 
     private void createLotteryPlayerConfig() {
