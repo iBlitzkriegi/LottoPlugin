@@ -16,4 +16,9 @@ public class Util {
     public static void sendMessage(CommandSender commandSender, String message) {
         commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
+
+    public static String getUniqueId(Player player) {
+        return player.getUniqueId().toString();
+    }
+
 }
