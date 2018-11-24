@@ -2,22 +2,26 @@ package net.runebrire.lottoplugin;
 
 import net.runebrire.lottoplugin.commands.Lottery;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.IOException;
 
 public final class LottoPlugin extends JavaPlugin {
+
+    private File lotteryPlayerFile;
+    private FileConfiguration lotteryPlayer;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         System.out.println("Plugin is now Loading");
-        if(!loadConfig()){
-            getLogger().severe("Unable to load config files. Disabling plugin.");
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
         this.getCommand("lottery").setExecutor(new Lottery());
         getServer().getConsoleSender().sendMessage("LotteryPlugin Enabled");
+        saveDefaultConfig();
 
     }
 
@@ -27,21 +31,23 @@ public final class LottoPlugin extends JavaPlugin {
         getServer().getConsoleSender().sendMessage("LotteryPlugin Disabled.");
     }
 
-    private boolean loadConfig() {
+    public FileConfiguration getLotteryPlayerConfig() {
+        return this.lotteryPlayer;
+    }
+
+    private void createLotteryPlayerConfig() {
+        lotteryPlayerFile = new File(getDataFolder(), "lottery-players.yml");
+        if (!lotteryPlayerFile.exists()) {
+            lotteryPlayerFile.getParentFile().mkdirs();
+            saveResource("lottery-players.yml", false);
+        }
+
+        lotteryPlayer = new YamlConfiguration();
         try {
-            if (!getDataFolder().exists()) {
-                getDataFolder().mkdirs();
-            }
-            File file = new File(getDataFolder(), "config.yml");
-            if (!file.exists()) {
-                getLogger().info("Created config.yml");
-                saveDefaultConfig();
-            }
-            return true;
-        } catch (Exception unknownError) {
-            getLogger().info("Unable to load config.yml");
-            unknownError.printStackTrace();
-            return false;
+            lotteryPlayer.load(lotteryPlayerFile);
+        } catch (IOException | InvalidConfigurationException x) {
+            x.printStackTrace();
         }
     }
+
 }
