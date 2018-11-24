@@ -1,6 +1,6 @@
 package net.runebrire.lottoplugin;
 
-import net.runebrire.lottoplugin.commands.lottery;
+import net.runebrire.lottoplugin.commands.Lottery;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,7 +16,7 @@ public final class LottoPlugin extends JavaPlugin {
             getLogger().severe("Unable to load config files. Disabling plugin.");
             Bukkit.getPluginManager().disablePlugin(this);
         }
-        this.getCommand("lottery").setExecutor(new lottery());
+        this.getCommand("lottery").setExecutor(new Lottery());
         getServer().getConsoleSender().sendMessage("LotteryPlugin Enabled");
 
     }
