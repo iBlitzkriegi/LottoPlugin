@@ -23,11 +23,19 @@ public class Lottery implements CommandExecutor {
         String commandName = args[0].toLowerCase();
         switch (commandName) {
             case "buy":
-                Util.sendMessage(player, "You bought a ticket!");
+                if(Util.hasPermission(player, "lottery.buy")){
+                    System.out.println("That use has the required permission!");
+                    Util.sendMessage(player, "You have purchased a ticket!");//TODO: Add a variable to give the ticket # at the end
+            }
                 break;
-            case "other":
-                Util.sendMessage(player, "You did something else!");
+            case "time":
+                if(Util.hasPermission(player, "lottery.time")){
+                System.out.println("Has required permission");
+                Util.sendMessage(player, "There is currently time remaining");//TODO: Add a check for a timer when Lottery Ends
+            }
         }
         return true;
     }
 }
+
+//TODO: Add Admin commands for Lottery Start/Stop/Restart
