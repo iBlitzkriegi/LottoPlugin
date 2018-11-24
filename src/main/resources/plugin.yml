@@ -1,0 +1,9 @@
+name: LottoPlugin
+version: ${project.version}
+main: net.runebrire.lottoplugin.LottoPlugin
+authors: [marines4ever]
+description: Lottery Plugin
+website: https://runebrire.net
+commands:
+  lottery:
+    description: This is a description
