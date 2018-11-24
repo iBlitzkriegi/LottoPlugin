@@ -1,6 +1,8 @@
 package net.runebrire.lottoplugin;
 
 import net.runebrire.lottoplugin.commands.Lottery;
+import net.runebrire.lottoplugin.util.LotteryDataLoader;
+import net.runebrire.lottoplugin.util.TicketHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,8 +14,8 @@ import java.io.IOException;
 
 public final class LottoPlugin extends JavaPlugin {
 
-    private File lotteryPlayerFile;
-    private FileConfiguration lotteryPlayer;
+    public static File lotteryPlayerFile;
+    public static FileConfiguration lotteryPlayer;
 
     @Override
     public void onEnable() {
@@ -22,12 +24,15 @@ public final class LottoPlugin extends JavaPlugin {
         getServer().getConsoleSender().sendMessage("LotteryPlugin Enabled");
         saveDefaultConfig();
         createLotteryPlayerConfig();
+        new TicketHandler(this);
+        LotteryDataLoader.loadTickets();
 
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        LotteryDataLoader.saveTickets();
         getServer().getConsoleSender().sendMessage("LotteryPlugin Disabled.");
     }
 
