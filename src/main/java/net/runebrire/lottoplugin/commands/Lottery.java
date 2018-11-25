@@ -1,5 +1,6 @@
 package net.runebrire.lottoplugin.commands;
 
+
 import net.runebrire.lottoplugin.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,9 +24,10 @@ public class Lottery implements CommandExecutor {
         String commandName = args[0].toLowerCase();
         switch (commandName) {
             case "buy":
+                // Check if User has permission to execute /lottery buy command to purchase a ticket
                 if(Util.hasPermission(player, "lottery.buy")){
-                    System.out.println("That use has the required permission!");
-                    Util.sendMessage(player, "You have purchased a ticket!");//TODO: Add a variable to give the ticket # at the end
+                    System.out.println("That user has the required permission!");
+                    //Upon purchase, creates a ticket and shows user the ticket numbers
             }
                 break;
             case "time":
