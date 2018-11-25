@@ -1,4 +1,4 @@
-package net.runebrire.lottoplugin.util;
+package me.iblitzkriegi.lottoplugin.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

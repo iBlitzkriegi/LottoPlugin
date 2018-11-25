@@ -1,10 +1,9 @@
-package net.runebrire.lottoplugin.util;
+package me.iblitzkriegi.lottoplugin.util;
 
-import net.runebrire.lottoplugin.LottoPlugin;
+import me.iblitzkriegi.lottoplugin.LottoPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class LotteryDataLoader {
 

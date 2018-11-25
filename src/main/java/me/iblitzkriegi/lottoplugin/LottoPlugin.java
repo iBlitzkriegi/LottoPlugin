@@ -1,11 +1,10 @@
-package net.runebrire.lottoplugin;
+package me.iblitzkriegi.lottoplugin;
 
-import net.runebrire.lottoplugin.commands.Lottery;
-import net.runebrire.lottoplugin.util.LotteryDataLoader;
-import net.runebrire.lottoplugin.util.LotteryRunnable;
-import net.runebrire.lottoplugin.util.TicketHandler;
-import net.runebrire.lottoplugin.util.Util;
-import org.bukkit.Bukkit;
+import me.iblitzkriegi.lottoplugin.commands.Lottery;
+import me.iblitzkriegi.lottoplugin.util.LotteryDataLoader;
+import me.iblitzkriegi.lottoplugin.util.LotteryRunnable;
+import me.iblitzkriegi.lottoplugin.util.TicketHandler;
+import me.iblitzkriegi.lottoplugin.util.Util;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public final class LottoPlugin extends JavaPlugin {
 

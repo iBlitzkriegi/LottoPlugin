@@ -1,9 +1,8 @@
 name: LottoPlugin
-version: ${project.version}
-main: net.runebrire.lottoplugin.LottoPlugin
-authors: [marines4ever]
+version: 1.0.0
+main: me.iblitzkriegi.lottoplugin.LottoPlugin
+authors: [iBlitzkriegi]
 description: Lottery Plugin
-website: https://runebrire.net
 commands:
   lottery:
     description: This is a description

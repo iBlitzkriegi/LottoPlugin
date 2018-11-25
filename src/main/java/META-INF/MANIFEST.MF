@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: net.runebrire.lottoplugin.LottoPlugin
+Main-Class: me.iblitzkriegi.lottoplugin.LottoPlugin
 

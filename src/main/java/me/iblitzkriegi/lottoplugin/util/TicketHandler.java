@@ -1,14 +1,11 @@
-package net.runebrire.lottoplugin.util;
+package me.iblitzkriegi.lottoplugin.util;
 
-import net.runebrire.lottoplugin.LottoPlugin;
+import me.iblitzkriegi.lottoplugin.LottoPlugin;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
-import static net.runebrire.lottoplugin.LottoPlugin.currentLotteryFile;
 
 public class TicketHandler {
     public static HashMap<String, String> tickets = new HashMap<>(); //PlayerUUID, The string containing their ticket stub
@@ -69,7 +66,7 @@ public class TicketHandler {
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
         getPlugin().currentLotteryFile.delete();
-        currentLotteryFile.getParentFile().mkdirs();
+        LottoPlugin.currentLotteryFile.getParentFile().mkdirs();
         getPlugin().saveResource("current-lottery.yml", true);
     }
 

@@ -1,13 +1,11 @@
-package net.runebrire.lottoplugin.commands;
+package me.iblitzkriegi.lottoplugin.commands;
 
-import net.runebrire.lottoplugin.util.TicketHandler;
-import net.runebrire.lottoplugin.util.Util;
+import me.iblitzkriegi.lottoplugin.util.Util;
+import me.iblitzkriegi.lottoplugin.util.TicketHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import static net.runebrire.lottoplugin.util.Util.sendMessage;
 
 public class Lottery implements CommandExecutor {
 
@@ -19,8 +17,8 @@ public class Lottery implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (args.length == 0) {
-            sendMessage(player, "You need to give the command an argument");
-            sendMessage(player, "/lottery buy");
+            Util.sendMessage(player, "You need to give the command an argument");
+            Util.sendMessage(player, "/lottery buy");
             return true;
         }
         String commandName = args[0].toLowerCase();
@@ -29,17 +27,17 @@ public class Lottery implements CommandExecutor {
             case "buy":
                 if (!TicketHandler.hasTicket(uuid)) {
                     if (!TicketHandler.isRunning()) {
-                        sendMessage(player, "The lottery currently isnt running. ask an admin to start one or wait for the next server restart!");
+                        Util.sendMessage(player, "The lottery currently isnt running. ask an admin to start one or wait for the next server restart!");
                         return true;
                     }
                     TicketHandler.setTicket(uuid, "24, 24, 24, 24");
-                    sendMessage(player, "Your ticets " + TicketHandler.getTicket(uuid));
+                    Util.sendMessage(player, "Your ticets " + TicketHandler.getTicket(uuid));
                 }
                 break;
             case "time":
                 if(Util.hasPermission(player, "lottery.time")){
                 System.out.println("Has required permission");
-                sendMessage(player, "There is currently time remaining");//TODO: Add a check for a timer when Lottery Ends
+                Util.sendMessage(player, "There is currently time remaining");//TODO: Add a check for a timer when Lottery Ends
             }
             case "reset":
                 TicketHandler.endLottery();
