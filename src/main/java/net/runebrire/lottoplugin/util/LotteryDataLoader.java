@@ -11,7 +11,7 @@ public class LotteryDataLoader {
     private static LottoPlugin plugin = TicketHandler.getPlugin();
 
     public static void saveTickets() {
-//        if (TicketHandler.getTicketMap().isEmpty()) return;
+        if (TicketHandler.getTicketMap().isEmpty()) return;
         for (String uuid : TicketHandler.getTicketMap().keySet()) {
             plugin.getCurrentLottery().set("tickets." + uuid, TicketHandler.getTicketMap().get(uuid));
         }

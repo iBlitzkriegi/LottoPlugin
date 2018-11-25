@@ -23,6 +23,7 @@ public final class LottoPlugin extends JavaPlugin {
 
     public static File currentLotteryFile;
     public static FileConfiguration currentLottery;
+    public static BukkitTask lotteryTask;
 
     @Override
     public void onEnable() {
@@ -54,7 +55,7 @@ public final class LottoPlugin extends JavaPlugin {
 
         }
         Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
-        BukkitTask task = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
+        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
 
     }
 
