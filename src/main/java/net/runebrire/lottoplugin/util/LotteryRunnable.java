@@ -25,7 +25,6 @@ public class LotteryRunnable extends BukkitRunnable {
         Date todaysDate = new Date();
         long difference = lotteryEnding.getTime() - todaysDate.getTime();
         long seconds = TimeUnit.MILLISECONDS.toSeconds(difference);
-        System.out.println("Ran through here @ " + todaysDate);
         if (seconds == interval || seconds > interval) {
             plugin.getServer().broadcastMessage("The lottery has come to an end!");
             this.cancel();
