@@ -70,4 +70,8 @@ public class TicketHandler {
         getPlugin().saveResource("current-lottery.yml", true);
     }
 
+    public static boolean isRunning() {
+        return getPlugin().getCurrentLottery().getString("end-date").equalsIgnoreCase("0") ? false : true;
+    }
+
 }

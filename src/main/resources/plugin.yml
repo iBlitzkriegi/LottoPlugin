@@ -1,7 +1,7 @@
 name: LottoPlugin
 version: 1.0.0
 main: me.iblitzkriegi.lottoplugin.LottoPlugin
-authors: [iBlitzkriegi]
+author: iBlitzkriegi
 description: Lottery Plugin
 commands:
   lottery:
