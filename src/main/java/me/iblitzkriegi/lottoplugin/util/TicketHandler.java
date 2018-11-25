@@ -68,6 +68,7 @@ public class TicketHandler {
         getPlugin().currentLotteryFile.delete();
         LottoPlugin.currentLotteryFile.getParentFile().mkdirs();
         getPlugin().saveResource("current-lottery.yml", true);
+        getPlugin().lotteryTask.cancel();
     }
 
     public static boolean isRunning() {
