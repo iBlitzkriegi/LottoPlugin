@@ -4,11 +4,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class Util {
     public static boolean hasPermission(Player player, String permission) {
@@ -52,18 +50,5 @@ public class Util {
         return date;
     }
 
-    public static int number(int x, String formatter){
-        Random r = new Random();
-        int low = 1;
-        int high = 100;
-        int result = r.nextInt(high-low) + low;
-
-
-        return result;
-    }
-    public String formatter(int number){
-        DecimalFormat formatter = new DecimalFormat("##, ##, ##");
-        return formatter.format(number);
-    }
 
 }

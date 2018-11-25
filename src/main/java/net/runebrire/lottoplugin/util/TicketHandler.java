@@ -13,7 +13,8 @@ public class TicketHandler {
         plugin = instance;
     }
 
-    public static void setTicket(String uuid, String generatedTicket) { tickets.put(uuid, generatedTicket);
+    public static void setTicket(String uuid, String generatedTicket) {
+        tickets.put(uuid, generatedTicket);
     }
 
     public static String getTicket(String uuid) {
