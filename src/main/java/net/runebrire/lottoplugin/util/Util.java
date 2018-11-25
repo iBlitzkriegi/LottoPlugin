@@ -21,4 +21,18 @@ public class Util {
         return player.getUniqueId().toString();
     }
 
+    public static Integer parseInterval(String s) {
+        if (s.endsWith("d")) {
+            return Integer.valueOf(s.replaceFirst("d", "")) * 86400;
+        } else if (s.endsWith("mo")) {
+            return Integer.valueOf(s.replaceFirst("mo", "")) * 2678400;
+        } else if (s.endsWith("hr")) {
+            return Integer.valueOf(s.replaceFirst("hr", "")) * 3600;
+        } else if (s.endsWith("m")) {
+            return Integer.valueOf(s.replaceFirst("m", "")) * 60;
+        }
+        return null;
+    }
+
+
 }
