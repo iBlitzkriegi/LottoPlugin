@@ -4,6 +4,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Util {
     public static boolean hasPermission(Player player, String permission){
         if(player.hasPermission(permission)){
@@ -32,6 +38,18 @@ public class Util {
             return Integer.valueOf(s.replaceFirst("m", "")) * 60;
         }
         return null;
+    }
+
+
+    public static Date parseDate(String s)  {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
 
