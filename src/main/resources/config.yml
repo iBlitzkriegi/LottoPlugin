@@ -3,3 +3,12 @@
 # You can set the time interval by using these patterns; d for days, mo for months, hr for hours, m for minutes
 # Example; interval: 3mo, this would mean the lottery lasts three months
 interval: 7d
+
+# This sets the standard price to purchase a ticket to play the lottery.
+# This number is added to the lottery pull
+#
+ticket-price: 300
+
+# The minimum price the lottery is to begin at
+# Everytime a player purchases a ticket, the ticket price is added to this number
+lottery-pull: 3000

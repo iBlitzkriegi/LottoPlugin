@@ -10,6 +10,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 public final class LottoPlugin extends JavaPlugin {
 
-    public static File lotteryPlayerFile;
-    public static FileConfiguration lotteryPlayer;
+    public static File currentLotteryFile;
+    public static FileConfiguration currentLottery;
+    public static BukkitTask lotteryTask;
 
     @Override
     public void onEnable() {
@@ -34,23 +36,26 @@ public final class LottoPlugin extends JavaPlugin {
         LotteryDataLoader.loadTickets();
         int interval = Util.parseInterval(getConfig().getString("interval"));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-        if (getLotteryPlayerConfig().getString("date").equalsIgnoreCase("0")) {
+        if (getCurrentLottery().getString("end-date").equalsIgnoreCase("0")) {
             Calendar calendar = Calendar.getInstance();
             Date now = new Date();
             calendar.setTime(now);
             calendar.add(Calendar.SECOND, interval);
             String date = simpleDateFormat.format(calendar.getTime());
-            getLotteryPlayerConfig().set("date", date);
+            getCurrentLottery().set("end-date", date);
             try {
-                this.lotteryPlayer.save(this.lotteryPlayerFile);
+                this.currentLottery.save(this.currentLotteryFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            getServer().broadcastMessage("A new lottery has begun! Get your tickets now with /lottery buy. The lottery will end at " + date);
+            getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
+                String[] timeAndDate = date.split(" ");
+                getServer().broadcastMessage("A new lottery has begun! Get your tickets now with /lottery buy. The lottery will end on " + timeAndDate[0] + " at " + timeAndDate[1]);
+            }, 20, (20 * 60) * 10);
 
         }
-        Date lotteryEnding = Util.parseDate(getLotteryPlayerConfig().getString("date"));
-        new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
+        Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
+        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
 
     }
 
@@ -61,21 +66,21 @@ public final class LottoPlugin extends JavaPlugin {
         getServer().getConsoleSender().sendMessage("LotteryPlugin Disabled.");
     }
 
-    public FileConfiguration getLotteryPlayerConfig() {
-        return this.lotteryPlayer;
+    public FileConfiguration getCurrentLottery() {
+        return this.currentLottery;
 
     }
 
     private void createLotteryPlayerConfig() {
-        lotteryPlayerFile = new File(getDataFolder(), "lottery-players.yml");
-        if (!lotteryPlayerFile.exists()) {
-            lotteryPlayerFile.getParentFile().mkdirs();
-            saveResource("lottery-players.yml", false);
+        currentLotteryFile = new File(getDataFolder(), "current-lottery.yml");
+        if (!currentLotteryFile.exists()) {
+            currentLotteryFile.getParentFile().mkdirs();
+            saveResource("current-lottery.yml", false);
         }
 
-        lotteryPlayer = new YamlConfiguration();
+        currentLottery = new YamlConfiguration();
         try {
-            lotteryPlayer.load(lotteryPlayerFile);
+            currentLottery.load(currentLotteryFile);
         } catch (IOException | InvalidConfigurationException x) {
             x.printStackTrace();
         }

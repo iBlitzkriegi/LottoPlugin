@@ -1,5 +1,0 @@
-# This file is only to store player tickets and serialize the start date for the current lottery
-# Please do not modify anything in this file unless you know what you are doing
-# The time is based on a 24hr clock
-# The date is 0 if a lottery was stopped or hasn't reset yet.
-date: 0

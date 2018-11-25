@@ -1,12 +1,15 @@
 package net.runebrire.lottoplugin.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Util {
     public static boolean hasPermission(Player player, String permission) {
@@ -48,6 +51,18 @@ public class Util {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static String getNameFromUUID(String input) {
+        UUID uuid = UUID.fromString(input);
+        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+        if(player == null) return null;
+        return player.getName();
+    }
+
+    public static void broadcastMessage(String s) {
+        //TODO Add a config option to create a chat format aka prefix
+        Bukkit.getServer().broadcastMessage(s);
     }
 
 

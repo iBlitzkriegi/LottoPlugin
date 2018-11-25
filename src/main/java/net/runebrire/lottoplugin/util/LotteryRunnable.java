@@ -1,7 +1,6 @@
 package net.runebrire.lottoplugin.util;
 
 import net.runebrire.lottoplugin.LottoPlugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Date;
