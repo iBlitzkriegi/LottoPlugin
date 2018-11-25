@@ -1,0 +1,11 @@
+# The time is based on a 24hr clock
+# The date is 0 if a lottery was stopped or hasn't reset yet.
+# Please do not modify anything in this file unless you know what you are doing
+end-date: 0
+
+# The ticket price set for this custom lottery
+ticket-price: 200
+
+# The current lottery pull for this lottery
+lottery-pull: 3000
+
