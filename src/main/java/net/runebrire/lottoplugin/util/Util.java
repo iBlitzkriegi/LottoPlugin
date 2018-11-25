@@ -6,13 +6,11 @@ import org.bukkit.entity.Player;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Util {
-    public static boolean hasPermission(Player player, String permission){
-        if(player.hasPermission(permission)){
+    public static boolean hasPermission(Player player, String permission) {
+        if (player.hasPermission(permission)) {
             return true;
         }
         sendMessage(player, "You must have the " + permission + " permission in order to run this command!");
@@ -41,7 +39,7 @@ public class Util {
     }
 
 
-    public static Date parseDate(String s)  {
+    public static Date parseDate(String s) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         Date date = null;
         try {
