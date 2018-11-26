@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import static me.iblitzkriegi.lottoplugin.LottoPlugin.createLotteryPlayerConfig;
+
 public class TicketHandler {
     public static HashMap<String, String> tickets = new HashMap<>(); //PlayerUUID, The string containing their ticket stub
     public static HashMap<String, String> reverseTickets = new HashMap<>(); //The string containing their ticket stub, PlayerUUID
@@ -62,19 +64,17 @@ public class TicketHandler {
         String winningTicket = tickets.get(randomTicket);
         String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
         Util.broadcastWinner(winner);
+        getPlugin().lotteryTask.cancel();
+
         // Code to fully reset the lottery
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
+
+
         getPlugin().currentLotteryFile.delete();
-        LottoPlugin.currentLotteryFile.getParentFile().mkdirs();
-        getPlugin().saveResource("current-lottery.yml", true);
-        getPlugin().getCurrentLottery().set("end-date", "0");
-        try {
-            plugin.currentLottery.save(plugin.currentLotteryFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        getPlugin().lotteryTask.cancel();
+        createLotteryPlayerConfig();
+
+
     }
 
     public static boolean isRunning() {

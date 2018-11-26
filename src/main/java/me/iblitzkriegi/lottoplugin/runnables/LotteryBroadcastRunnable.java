@@ -16,7 +16,6 @@ public class LotteryBroadcastRunnable extends BukkitRunnable {
     public void run() {
         if (TicketHandler.isRunning()) {
             String[] timeAndDate = date.split(" ");
-            System.out.println("from here");
             Util.broadcastMessage("A new lottery has begun! Get your tickets now with /lottery buy. The lottery will end on " + timeAndDate[0] + " at " + timeAndDate[1]);
         } else {
             this.cancel();

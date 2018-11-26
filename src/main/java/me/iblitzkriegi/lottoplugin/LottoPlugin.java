@@ -27,6 +27,13 @@ public final class LottoPlugin extends JavaPlugin {
     public static String prefix;
     public static String chatFormat;
     public static String winnerMessage;
+    private static LottoPlugin instance;
+    //TODO Kill this static abuse ^
+
+
+    public LottoPlugin() {
+        instance = this;
+    }
 
     @Override
     public void onEnable() {
@@ -75,11 +82,15 @@ public final class LottoPlugin extends JavaPlugin {
 
     }
 
-    private void createLotteryPlayerConfig() {
-        currentLotteryFile = new File(getDataFolder(), "current-lottery.yml");
+    public static LottoPlugin getInstance() {
+        return instance;
+    }
+
+    public static void createLotteryPlayerConfig() {
+        currentLotteryFile = new File(getInstance().getDataFolder(), "current-lottery.yml");
         if (!currentLotteryFile.exists()) {
             currentLotteryFile.getParentFile().mkdirs();
-            saveResource("current-lottery.yml", false);
+            getInstance().saveResource("current-lottery.yml", false);
         }
 
         currentLottery = new YamlConfiguration();
