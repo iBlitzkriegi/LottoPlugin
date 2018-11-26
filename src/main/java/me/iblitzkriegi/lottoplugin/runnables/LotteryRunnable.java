@@ -25,9 +25,6 @@ public class LotteryRunnable extends BukkitRunnable {
         Date todaysDate = new Date();
         long difference = todaysDate.getTime() - lotteryEnding.getTime();
         long seconds = TimeUnit.MILLISECONDS.toSeconds(difference);
-        System.out.println("here");
-        System.out.println("if " + seconds + " equals " + interval);
-        System.out.println("if " + seconds + " more than " + interval);
         if (seconds == interval || seconds > interval) {
             TicketHandler.endLottery();
             this.cancel();

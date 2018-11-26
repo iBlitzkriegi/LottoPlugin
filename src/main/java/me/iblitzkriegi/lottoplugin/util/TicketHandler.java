@@ -2,6 +2,7 @@ package me.iblitzkriegi.lottoplugin.util;
 
 import me.iblitzkriegi.lottoplugin.LottoPlugin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,12 +63,17 @@ public class TicketHandler {
         String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
         getPlugin().getServer().broadcastMessage(winner + " has won! Their ticket was " + winningTicket);
         // Code to fully reset the lottery
-        getPlugin().getCurrentLottery().set("end-date", "0");
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
         getPlugin().currentLotteryFile.delete();
         LottoPlugin.currentLotteryFile.getParentFile().mkdirs();
         getPlugin().saveResource("current-lottery.yml", true);
+        getPlugin().getCurrentLottery().set("end-date", "0");
+        try {
+            plugin.currentLottery.save(plugin.currentLotteryFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getPlugin().lotteryTask.cancel();
     }
 
