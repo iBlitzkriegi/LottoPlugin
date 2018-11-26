@@ -23,6 +23,7 @@ public final class LottoPlugin extends JavaPlugin {
     public static File currentLotteryFile;
     public static FileConfiguration currentLottery;
     public static BukkitTask lotteryTask;
+    public static BukkitTask lotteryBroadcastTask;
 
     @Override
     public void onEnable() {
@@ -34,6 +35,7 @@ public final class LottoPlugin extends JavaPlugin {
         new TicketHandler(this);
         LotteryDataLoader.loadTickets();
         int interval = Util.parseInterval(getConfig().getString("interval"));
+        int broadcastMinutes = Util.parseInterval(getConfig().getString("broadcast-interval"));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         if (getCurrentLottery().getString("end-date").equalsIgnoreCase("0")) {
             Calendar calendar = Calendar.getInstance();
@@ -47,11 +49,11 @@ public final class LottoPlugin extends JavaPlugin {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(this, 20, (20 * 60) * 10);
+            lotteryBroadcastTask = new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(this, 20, 20 * broadcastMinutes);
 
         }
         Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
-        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
+        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 180);
 
     }
 
