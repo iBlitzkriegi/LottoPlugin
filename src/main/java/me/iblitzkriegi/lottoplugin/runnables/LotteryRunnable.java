@@ -1,6 +1,7 @@
-package me.iblitzkriegi.lottoplugin.util;
+package me.iblitzkriegi.lottoplugin.runnables;
 
 import me.iblitzkriegi.lottoplugin.LottoPlugin;
+import me.iblitzkriegi.lottoplugin.util.TicketHandler;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Date;
@@ -22,10 +23,13 @@ public class LotteryRunnable extends BukkitRunnable {
     public void run() {
         //TODO Add admin shutdown to stop lottery on the run
         Date todaysDate = new Date();
-        long difference = lotteryEnding.getTime() - todaysDate.getTime();
+        long difference = todaysDate.getTime() - lotteryEnding.getTime();
         long seconds = TimeUnit.MILLISECONDS.toSeconds(difference);
+        System.out.println("here");
+        System.out.println("if " + seconds + " equals " + interval);
+        System.out.println("if " + seconds + " more than " + interval);
         if (seconds == interval || seconds > interval) {
-            plugin.getServer().broadcastMessage("The lottery has come to an end!");
+            TicketHandler.endLottery();
             this.cancel();
         }
 
