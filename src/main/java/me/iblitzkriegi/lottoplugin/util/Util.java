@@ -24,7 +24,7 @@ public class Util {
     }
 
     public static void sendMessage(CommandSender commandSender, String message) {
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + chatFormat.replace("%message%", message)));
+        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + chatFormat.replace("%message%", message)) + message);
     }
 
     public static String getUniqueId(Player player) {

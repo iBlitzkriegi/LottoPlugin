@@ -18,7 +18,7 @@ lottery-pull: 3000
 broadcast-interval: 1m
 
 # This is the prefix the plugin will show in chat
-plugin-prefix: "&8&l[&bLottoPlugin&8&l]"
+plugin-prefix: "&8&l[&bLottoPlugin&8&l] "
 
 # This is the format that messages broadcast by this plugin follow
 # Example: &b&l%message%
