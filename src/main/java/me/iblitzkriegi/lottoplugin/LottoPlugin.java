@@ -1,8 +1,9 @@
 package me.iblitzkriegi.lottoplugin;
 
 import me.iblitzkriegi.lottoplugin.commands.Lottery;
+import me.iblitzkriegi.lottoplugin.runnables.LotteryBroadcastRunnable;
 import me.iblitzkriegi.lottoplugin.util.LotteryDataLoader;
-import me.iblitzkriegi.lottoplugin.util.LotteryRunnable;
+import me.iblitzkriegi.lottoplugin.runnables.LotteryRunnable;
 import me.iblitzkriegi.lottoplugin.util.TicketHandler;
 import me.iblitzkriegi.lottoplugin.util.Util;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -46,10 +47,7 @@ public final class LottoPlugin extends JavaPlugin {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                String[] timeAndDate = date.split(" ");
-                getServer().broadcastMessage("A new lottery has begun! Get your tickets now with /lottery buy. The lottery will end on " + timeAndDate[0] + " at " + timeAndDate[1]);
-            }, 20, (20 * 60) * 10);
+            new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(this, 20, (20 * 60) * 10);
 
         }
         Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
