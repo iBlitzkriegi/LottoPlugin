@@ -1,5 +1,6 @@
 package me.iblitzkriegi.lottoplugin.util;
 
+import me.iblitzkriegi.lottoplugin.LottoPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -21,7 +22,7 @@ public class Util {
     }
 
     public static void sendMessage(CommandSender commandSender, String message) {
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + message));
     }
 
     public static String getUniqueId(Player player) {
@@ -62,7 +63,7 @@ public class Util {
 
     public static void broadcastMessage(String s) {
         //TODO Add a config option to create a chat format aka prefix
-        Bukkit.getServer().broadcastMessage(s);
+        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + s));
     }
 
 

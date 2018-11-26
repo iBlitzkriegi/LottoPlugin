@@ -16,3 +16,8 @@ lottery-pull: 3000
 # The interval in which the reminder about the lottery running should be sent
 # This follows the same pattern as the interval setting
 broadcast-interval: 1m
+
+# This is the format that messages broadcast by this plugin follow
+# Example: &8&l[&bLottoPlugin&8&l] &b&l%message%
+# %message% is a placeholder for the content of the message
+chat-format: &8&l[&bLottoPlugin&8&l] &b&l%message%

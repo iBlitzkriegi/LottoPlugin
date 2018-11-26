@@ -24,6 +24,7 @@ public final class LottoPlugin extends JavaPlugin {
     public static FileConfiguration currentLottery;
     public static BukkitTask lotteryTask;
     public static BukkitTask lotteryBroadcastTask;
+    public static String prefix;
 
     @Override
     public void onEnable() {
@@ -54,6 +55,7 @@ public final class LottoPlugin extends JavaPlugin {
         }
         Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
         lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 180);
+        prefix = getConfig().getString("chat-format").replaceAll("%message%", "");
 
     }
 
