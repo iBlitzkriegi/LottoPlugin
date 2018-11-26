@@ -63,7 +63,7 @@ public final class LottoPlugin extends JavaPlugin {
 
         }
         Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
-        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 180);
+        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
         prefix = getConfig().getString("plugin-prefix");
         chatFormat = getConfig().getString("chat-format").replaceFirst("%message%", "");
         winnerMessage = getConfig().getString("win-lottery-message");

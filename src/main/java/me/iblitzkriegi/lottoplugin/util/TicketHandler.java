@@ -65,12 +65,9 @@ public class TicketHandler {
         String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
         Util.broadcastWinner(winner);
         getPlugin().lotteryTask.cancel();
-
         // Code to fully reset the lottery
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
-
-
         getPlugin().currentLotteryFile.delete();
         createLotteryPlayerConfig();
 
