@@ -17,7 +17,16 @@ lottery-pull: 3000
 # This follows the same pattern as the interval setting
 broadcast-interval: 1m
 
+# This is the prefix the plugin will show in chat
+plugin-prefix: "&8&l[&bLottoPlugin&8&l]"
+
 # This is the format that messages broadcast by this plugin follow
-# Example: &8&l[&bLottoPlugin&8&l] &b&l%message%
+# Example: &b&l%message%
 # %message% is a placeholder for the content of the message
-chat-format: &8&l[&bLottoPlugin&8&l] &b&l%message%
+# This will display as the plugin-prefix + %message% in chat
+chat-format: "&b%message%"
+
+# Lottery winning message
+# This decide how the message will look when a player wins the lottery
+# Use %player% as a placeholder for the winning player.
+win-lottery-message: "&a%player% &bhas won the lottery!"

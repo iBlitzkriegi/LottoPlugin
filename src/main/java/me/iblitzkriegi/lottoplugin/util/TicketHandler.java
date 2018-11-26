@@ -61,7 +61,7 @@ public class TicketHandler {
         int randomTicket = new Random().nextInt(tickets.size());
         String winningTicket = tickets.get(randomTicket);
         String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
-        getPlugin().getServer().broadcastMessage(winner + " has won! Their ticket was " + winningTicket);
+        Util.broadcastWinner(winner);
         // Code to fully reset the lottery
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();

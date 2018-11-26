@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+import static me.iblitzkriegi.lottoplugin.LottoPlugin.chatFormat;
+
 public class Util {
     public static boolean hasPermission(Player player, String permission) {
         if (player.hasPermission(permission)) {
@@ -22,7 +24,7 @@ public class Util {
     }
 
     public static void sendMessage(CommandSender commandSender, String message) {
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + message));
+        commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + chatFormat.replace("%message%", message)));
     }
 
     public static String getUniqueId(Player player) {
@@ -62,8 +64,13 @@ public class Util {
     }
 
     public static void broadcastMessage(String s) {
-        //TODO Add a config option to create a chat format aka prefix
-        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + s));
+        String format = chatFormat;
+        format.replaceAll("%message%", s);
+        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + format + s));
+    }
+
+    public static void broadcastWinner(String player) {
+        Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + LottoPlugin.winnerMessage.replaceAll("%player%", player)));
     }
 
 
