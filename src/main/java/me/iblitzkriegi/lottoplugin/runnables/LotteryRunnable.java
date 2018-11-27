@@ -21,7 +21,6 @@ public class LotteryRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        //TODO Add admin shutdown to stop lottery on the run
         Date todaysDate = new Date();
         long difference = todaysDate.getTime() - lotteryEnding.getTime();
         long seconds = TimeUnit.MILLISECONDS.toSeconds(difference);

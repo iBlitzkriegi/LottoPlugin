@@ -4,6 +4,11 @@
 # Example; interval: 3mo, this would mean the lottery lasts three months
 interval: 7d
 
+# This decides whether to restart the lottery if one ends upon restart or not
+# So if the lottery ends, and you restart the server, this decides if you want the plugin to setup a new one for you
+# Use false if you do not want it to be automatic, or true if you do
+auto-start: true
+
 # This sets the standard price to purchase a ticket to play the lottery.
 # This number is added to the lottery pull
 #
