@@ -2,7 +2,6 @@ package me.iblitzkriegi.lottoplugin.util;
 
 import me.iblitzkriegi.lottoplugin.LottoPlugin;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,17 +54,15 @@ public class TicketHandler {
 
     public static void endLottery() {
         List<String> tickets = new ArrayList<>(reverseTickets.keySet());
-        if (tickets.size() == 0) {
+        if (tickets.size() != 0) {
+            int randomTicket = new Random().nextInt(tickets.size());
+            String winningTicket = tickets.get(randomTicket);
+            String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
+            Util.broadcastWinner(winner);
+        } else {
             Util.broadcastMessage("The lottery has ended without any tickets being purchased :(, make sure you get in on the next one!");
-            return;
         }
-        // Pick a winner
-        int randomTicket = new Random().nextInt(tickets.size());
-        String winningTicket = tickets.get(randomTicket);
-        String winner = Util.getNameFromUUID(reverseTickets.get(winningTicket));
-        Util.broadcastWinner(winner);
         getPlugin().lotteryTask.cancel();
-        // Code to fully reset the lottery
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
         getPlugin().currentLotteryFile.delete();
