@@ -7,9 +7,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 import static me.iblitzkriegi.lottoplugin.LottoPlugin.chatFormat;
@@ -71,6 +73,20 @@ public class Util {
 
     public static void broadcastWinner(String player) {
         Bukkit.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', LottoPlugin.prefix + LottoPlugin.winnerMessage.replaceAll("%player%", player)));
+    }
+
+    public static int getRandomNumber(){
+        Random r = new Random();
+        int low = 1;
+        int high = 100;
+        int result = r.nextInt(high-low) + low;
+        return result;
+    }
+    public static String formatTicket(int... numbers){
+        if (numbers.length != 4) {
+            throw new IllegalArgumentException("You must include at least four numbers");
+        }
+        return numbers[0] + ", " + numbers[1] + ", " + numbers[2] + ", " + numbers[3];
     }
 
 
