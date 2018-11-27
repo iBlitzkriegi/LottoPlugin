@@ -62,7 +62,9 @@ public class TicketHandler {
         } else {
             Util.broadcastMessage("The lottery has ended without any tickets being purchased :(, make sure you get in on the next one!");
         }
-        getPlugin().lotteryTask.cancel();
+        if (getPlugin().lotteryTask != null) {
+            getPlugin().lotteryTask.cancel();
+        }
         TicketHandler.reverseTickets.clear();
         TicketHandler.tickets.clear();
         getPlugin().currentLotteryFile.delete();
