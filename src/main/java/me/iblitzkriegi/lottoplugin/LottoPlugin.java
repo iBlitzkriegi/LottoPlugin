@@ -1,6 +1,7 @@
 package me.iblitzkriegi.lottoplugin;
 
-import me.iblitzkriegi.lottoplugin.commands.Lottery;
+import me.iblitzkriegi.lottoplugin.commands.LotteryCommand;
+import me.iblitzkriegi.lottoplugin.commands.TicketCommand;
 import me.iblitzkriegi.lottoplugin.runnables.LotteryBroadcastRunnable;
 import me.iblitzkriegi.lottoplugin.util.LotteryDataLoader;
 import me.iblitzkriegi.lottoplugin.runnables.LotteryRunnable;
@@ -38,7 +39,8 @@ public final class LottoPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        this.getCommand("lottery").setExecutor(new Lottery());
+        this.getCommand("lottery").setExecutor(new LotteryCommand());
+        this.getCommand("buyticket").setExecutor(new TicketCommand());
         getServer().getConsoleSender().sendMessage("LotteryPlugin Enabled");
         saveDefaultConfig();
         createLotteryPlayerConfig();
@@ -47,7 +49,7 @@ public final class LottoPlugin extends JavaPlugin {
         int interval = Util.parseInterval(getConfig().getString("interval"));
         int broadcastMinutes = Util.parseInterval(getConfig().getString("broadcast-interval"));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-        if (getCurrentLottery().getString("end-date").equalsIgnoreCase("0")) {
+        if (getCurrentLottery().getString("end-date").equalsIgnoreCase("0") && getConfig().getBoolean("auto-start")) {
             Calendar calendar = Calendar.getInstance();
             Date now = new Date();
             calendar.setTime(now);
@@ -60,10 +62,10 @@ public final class LottoPlugin extends JavaPlugin {
                 e.printStackTrace();
             }
             lotteryBroadcastTask = new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(this, 20, 20 * broadcastMinutes);
+            Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
+            lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
 
         }
-        Date lotteryEnding = Util.parseDate(getCurrentLottery().getString("end-date"));
-        lotteryTask = new LotteryRunnable(this, interval, lotteryEnding).runTaskTimerAsynchronously(this, 20, 20 * 60);
         prefix = getConfig().getString("plugin-prefix");
         chatFormat = getConfig().getString("chat-format").replaceFirst("%message%", "");
         winnerMessage = getConfig().getString("win-lottery-message");
