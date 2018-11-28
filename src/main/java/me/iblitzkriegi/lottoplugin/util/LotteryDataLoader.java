@@ -7,12 +7,12 @@ import java.io.IOException;
 
 public class LotteryDataLoader {
 
-    private static LottoPlugin plugin = TicketHandler.getPlugin();
+    private static LottoPlugin plugin = LotteryHandler.getPlugin();
 
     public static void saveTickets() {
-        if (TicketHandler.getTicketMap().isEmpty()) return;
-        for (String uuid : TicketHandler.getTicketMap().keySet()) {
-            plugin.getCurrentLottery().set("tickets." + uuid, TicketHandler.getTicketMap().get(uuid));
+        if (LotteryHandler.getTicketMap().isEmpty()) return;
+        for (String uuid : LotteryHandler.getTicketMap().keySet()) {
+            plugin.getCurrentLottery().set("tickets." + uuid, LotteryHandler.getTicketMap().get(uuid));
         }
         try {
             plugin.currentLottery.save(plugin.currentLotteryFile);
@@ -25,7 +25,7 @@ public class LotteryDataLoader {
         if (!plugin.getCurrentLottery().contains("tickets")) return;
         FileConfiguration currentLottery = plugin.getCurrentLottery();
         for (String uuid : currentLottery.getConfigurationSection("tickets").getKeys(false)) {
-            TicketHandler.setTicket(uuid, currentLottery.getString("tickets." + uuid));
+            LotteryHandler.setTicket(uuid, currentLottery.getString("tickets." + uuid));
         }
     }
 

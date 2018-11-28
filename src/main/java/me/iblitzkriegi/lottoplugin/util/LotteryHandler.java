@@ -88,13 +88,11 @@ public class LotteryHandler {
         getPlugin().getCurrentLottery().set("end-date", date);
         getPlugin().getCurrentLottery().set("ticket-price", ticketPrice);
         getPlugin().getCurrentLottery().set("lottery-pull", pullPrice);
-        getPlugin().getCurrentLottery().set("temp-interval", interval);
         try {
             getPlugin().currentLottery.save(getPlugin().currentLotteryFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(broadcastMinutes);
         getPlugin().setLotteryBroadcastTask(new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(getPlugin(), 20, 20 * broadcastMinutes));
         Date lotteryEnding = Util.parseDate(getPlugin().getCurrentLottery().getString("end-date"));
         getPlugin().setLotteryTask(new LotteryRunnable(getPlugin(), parsedInterval, lotteryEnding).runTaskTimerAsynchronously(getPlugin(), 20, 20 * 60));

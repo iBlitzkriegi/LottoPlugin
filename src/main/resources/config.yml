@@ -20,7 +20,7 @@ lottery-pull: 3000
 
 # The interval in which the reminder about the lottery running should be sent
 # This follows the same pattern as the interval setting
-broadcast-interval: 1m
+broadcast-interval: 5m
 
 # This is the prefix the plugin will show in chat
 plugin-prefix: "&8&l[&bLottoPlugin&8&l] "

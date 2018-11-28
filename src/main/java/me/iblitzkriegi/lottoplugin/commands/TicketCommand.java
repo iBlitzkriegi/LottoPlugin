@@ -2,7 +2,7 @@ package me.iblitzkriegi.lottoplugin.commands;
 
 import me.iblitzkriegi.lottoplugin.LottoPlugin;
 import me.iblitzkriegi.lottoplugin.runnables.TicketCreaterRunnable;
-import me.iblitzkriegi.lottoplugin.util.TicketHandler;
+import me.iblitzkriegi.lottoplugin.util.LotteryHandler;
 import me.iblitzkriegi.lottoplugin.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,12 +21,12 @@ public class TicketCommand implements CommandExecutor {
         if (!Util.hasPermission(player, "lottery.buy")) {
             return true;
         }
-        if (!TicketHandler.isRunning()) {
+        if (!LotteryHandler.isRunning()) {
             Util.sendMessage(player, "The lottery is not currently running. Ask an administrator to start one!");
             return true;
         }
         String uuid = Util.getUniqueId(player);
-        if (TicketHandler.hasTicket(uuid)) {
+        if (LotteryHandler.hasTicket(uuid)) {
             Util.sendMessage(player, "You already have a ticket! You must wait until this lottery is over to purchase another ticket.");
             return true;
         }
