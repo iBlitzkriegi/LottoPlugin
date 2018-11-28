@@ -5,4 +5,7 @@ author: iBlitzkriegi
 description: Lottery Plugin
 commands:
   lottery:
-    description: This is a description
+    description: Allows administrators to have full control over the lottery
+  buyticket:
+    description: The command to purchase a ticket
+
