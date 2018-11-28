@@ -1,20 +1,22 @@
 package me.iblitzkriegi.lottoplugin.util;
 
 import me.iblitzkriegi.lottoplugin.LottoPlugin;
+import me.iblitzkriegi.lottoplugin.runnables.LotteryBroadcastRunnable;
+import me.iblitzkriegi.lottoplugin.runnables.LotteryRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import static me.iblitzkriegi.lottoplugin.LottoPlugin.broadcastMinutes;
 import static me.iblitzkriegi.lottoplugin.LottoPlugin.createLotteryPlayerConfig;
 
-public class TicketHandler {
+public class LotteryHandler {
     public static HashMap<String, String> tickets = new HashMap<>(); //PlayerUUID, The string containing their ticket stub
     public static HashMap<String, String> reverseTickets = new HashMap<>(); //The string containing their ticket stub, PlayerUUID
     private static LottoPlugin plugin;
 
-    public TicketHandler(LottoPlugin instance) {
+    public LotteryHandler(LottoPlugin instance) {
         plugin = instance;
     }
 
@@ -48,6 +50,10 @@ public class TicketHandler {
         return false;
     }
 
+    public static boolean isRunning() {
+        return getPlugin().getCurrentLottery().getString("end-date").equalsIgnoreCase("0") ? false : true;
+    }
+
     public static HashMap<String, String> getReversedTicketMap() {
         return reverseTickets;
     }
@@ -63,18 +69,36 @@ public class TicketHandler {
             Util.broadcastMessage("The lottery has ended without any tickets being purchased :(, make sure you get in on the next one!");
         }
         if (getPlugin().lotteryTask != null) {
-            getPlugin().lotteryTask.cancel();
+            getPlugin().getLotteryTask().cancel();
         }
-        TicketHandler.reverseTickets.clear();
-        TicketHandler.tickets.clear();
+        LotteryHandler.reverseTickets.clear();
+        LotteryHandler.tickets.clear();
         getPlugin().currentLotteryFile.delete();
         createLotteryPlayerConfig();
-
-
     }
 
-    public static boolean isRunning() {
-        return getPlugin().getCurrentLottery().getString("end-date").equalsIgnoreCase("0") ? false : true;
+    public static void startLottery(String interval, String ticketPrice, String pullPrice) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        int parsedInterval = Util.parseInterval(interval);
+        Calendar calendar = Calendar.getInstance();
+        Date now = new Date();
+        calendar.setTime(now);
+        calendar.add(Calendar.SECOND, parsedInterval);
+        String date = simpleDateFormat.format(calendar.getTime());
+        getPlugin().getCurrentLottery().set("end-date", date);
+        getPlugin().getCurrentLottery().set("ticket-price", ticketPrice);
+        getPlugin().getCurrentLottery().set("lottery-pull", pullPrice);
+        getPlugin().getCurrentLottery().set("temp-interval", interval);
+        try {
+            getPlugin().currentLottery.save(getPlugin().currentLotteryFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(broadcastMinutes);
+        getPlugin().setLotteryBroadcastTask(new LotteryBroadcastRunnable(date).runTaskTimerAsynchronously(getPlugin(), 20, 20 * broadcastMinutes));
+        Date lotteryEnding = Util.parseDate(getPlugin().getCurrentLottery().getString("end-date"));
+        getPlugin().setLotteryTask(new LotteryRunnable(getPlugin(), parsedInterval, lotteryEnding).runTaskTimerAsynchronously(getPlugin(), 20, 20 * 60));
     }
+
 
 }
